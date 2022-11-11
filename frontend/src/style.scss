@@ -1,0 +1,1993 @@
+$orange: #fbbf24;
+$l-orange: #fde68a;
+$grey: #6b7280;
+$l-grey: #f3f4f6;
+$shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+$border: 1px solid #d1d5db;
+$curreny-unit: '₺';
+
+// yatay gap 2%, dikey gap 1rem
+// küçük divlerde pading 0.5rem
+
+@mixin dp-flex ($fd, $jc, $ai) {
+    display: flex;
+    flex-direction: $fd;
+    justify-content: $jc;
+    align-items: $ai;
+}
+
+.page-not-founded-btn {
+    text-decoration: underline 1px solid;
+}
+
+.form {
+    @include dp-flex(column, flex-start, flex-start);
+    width: 100%;
+    //min-width: calc(375px - 4%);
+    max-width: 40rem;
+    padding: 1rem 2%;
+    gap: 1.5rem;
+    box-shadow: $shadow;
+
+    .form-row {
+        @include dp-flex(row, space-between, center);
+        gap: 2%;
+        width: 100%;
+        height: auto;
+    }
+
+    h2 {
+        @include dp-flex(row, space-between, center);
+        width: 100%;
+
+        .close-btn {
+            cursor: pointer;
+        }
+    }
+
+    label {
+        @include dp-flex(column, flex-start, flex-start);
+        position: relative;
+        gap: 0.25rem;
+        width: 100%;
+        height: auto;
+        border-radius: 2px;
+
+        input {
+            background: #f9fafb;
+
+            &:focus+span {
+                top: 0%;
+                color: $orange;
+                background: #fff;
+            }
+        }
+
+        span {
+            position: absolute;
+            top: 50%;
+            left: 2%;
+            transform: translateY(-50%);
+            color: $grey;
+            transition: all .25s;
+            z-index: 2;
+            font-size: 0.9rem;
+            background: none;
+        }
+
+        span.fix {
+            top: 0%;
+            color: $orange;
+            z-index: 1;
+            background: #fff;
+        }
+
+        span.active {
+            top: 0%;
+            color: $orange;
+            background: #fff;
+        }
+
+        span.disable {
+            position: static;
+            top: none;
+            left: none;
+            transform: none;
+            font-size: 1rem;
+            background: none;
+            z-index: 1;
+        }
+    }
+
+    button {
+        background: $l-orange;
+
+        &:hover {
+            background: $orange;
+        }
+    }
+
+    textarea {
+        width: 100%;
+        height: auto;
+        min-height: 7rem;
+        resize: none;
+    }
+
+    select {
+        padding: 0.25rem 0.75rem;
+        border: $border;
+        border-radius: 2px;
+        outline: none;
+    }
+}
+
+.blur {
+    @include dp-flex(row, center, flex-start);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+    padding: 4%;
+    background: rgba(255, 255, 255, 0.49);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(16.9px);
+    -webkit-backdrop-filter: blur(16.9px);
+    z-index: 2;
+}
+
+.page-title {
+    @include dp-flex(row, space-between, center);
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 3px;
+    border: $border;
+}
+
+.loading-animation {
+    @include dp-flex(row, center, center);
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+
+    .bubbles {
+        display: block;
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 50%;
+        background-color: $orange;
+        animation: loading 1s ease infinite;
+    }
+
+    .bubble-2 {
+        animation-delay: 0.1s;
+    }
+
+    .bubble-3 {
+        animation-delay: 0.2s;
+    }
+
+    @keyframes loading {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.25;
+            transform: scale(0.75);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+}
+
+.page-numbers-div {
+    @include dp-flex(row, flex-start, center);
+    width: 100%;
+    height: auto;
+    gap: 0.5%;
+}
+
+.price {
+    &::after {
+        content: $curreny-unit;
+    }
+}
+
+.products-page {
+    @include dp-flex(row, flex-start, flex-start);
+    gap: 1rem 2%;
+    width: 100%;
+
+    .filters-div {
+        @include dp-flex(column, flex-start, center);
+        gap: 1rem;
+        flex: 1;
+
+        .sort-div {
+            width: 100%;
+            box-shadow: $shadow;
+            padding: 0.25rem;
+
+            select {
+                width: 100%;
+                padding: 0.25rem;
+            }
+        }
+
+        .filter-div {
+            width: 100%;
+            box-shadow: $shadow;
+            padding: 1rem;
+            z-index: 1;
+            user-select: none;
+
+            .filter-hide-checkbox {
+                display: none;
+            }
+
+            .filter-hide-checkbox:checked~.filters {
+                display: none;
+            }
+
+            .filter-title {
+                @include dp-flex(row, space-between, center);
+                width: 100%;
+                height: auto;
+
+                label {
+                    @include dp-flex(row, space-between, center);
+                    width: auto;
+                    height: 100%;
+                    padding-bottom: 0.5rem;
+
+                    .filter-hide-btn {
+                        display: none;
+                        height: 100%;
+                        padding: 0.1rem;
+                        cursor: pointer;
+                    }
+
+                    .filter-hide-btn.active {
+                        @include dp-flex(row, center, center);
+                    }
+                }
+            }
+
+            .filters {
+                @include dp-flex(column, flex-start, center);
+
+                .filter-element {
+                    @include dp-flex(row, flex-start, center);
+                    gap: 4%;
+                    width: 100%;
+                    min-height: 2rem;
+                    height: auto;
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+
+    .product-div-flex-box {
+        display: flex;
+        flex: 4;
+        height: auto;
+
+        .products-div {
+            display: grid;
+            width: 100%;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1rem 1.5%;
+
+            .product-div {
+                display: grid;
+                grid-column: span 3;
+                box-shadow: $shadow;
+                height: 18rem;
+                transition: all .4s;
+
+                &:hover {
+                    transform: scale(1.04);
+                }
+
+                .product-div-flexbox {
+                    @include dp-flex(column, space-between, center);
+                    gap: 2%;
+                    width: 100%;
+                    height: 100%;
+                    padding: 4%;
+
+                    .img {
+                        width: 100%;
+                        height: 68%;
+                        background: antiquewhite;
+                    }
+
+                    .product-bottom-div {
+                        @include dp-flex(column, flex-start, center);
+                        height: 30%;
+                        gap: 0.25rem;
+                        width: 100%;
+
+                        .product-title {
+                            width: 100%;
+                            font-weight: 600;
+                            font-size: 0.9rem;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 3;
+                            /* Number of lines displayed before it truncate */
+                            overflow: hidden;
+                        }
+
+                        .product-price {
+                            @include dp-flex(row, flex-start, center);
+                            width: 100%;
+                            color: $grey;
+
+                            &::after {
+                                content: $curreny-unit;
+                                padding-left: 0.25rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background-color: $orange;
+    z-index: 5;
+
+    .header-div {
+        @include dp-flex(column, flex-start, flex-start);
+        height: 5rem;
+        max-width: 1250px;
+        width: 96%;
+        margin: 0 auto;
+        //padding: 0 0.5%;
+
+        .header-top-div {
+            @include dp-flex(row, space-between, center);
+            flex: 7;
+            width: 100%;
+
+            .logo {
+                @include dp-flex(row, center, center);
+                height: 80%;
+                padding: 0 0.75rem;
+                letter-spacing: 0.5rem;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+
+            .header-buttons {
+                @include dp-flex(row, flex-start, center);
+                gap: 2%;
+                height: 80%;
+
+                .header-first-btn:hover .header-dropdown {
+                    display: block;
+                }
+
+                .header-first-btn,
+                .header-second-btn {
+                    @include dp-flex(row, center, center);
+                    position: relative;
+                    width: 10rem;
+                    height: 100%;
+                    background: #fff;
+                    border-radius: 3px;
+
+                    .header-dropdown {
+                        display: none;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        width: auto;
+                        min-width: 120%;
+                        background: #fff;
+                        box-shadow: $shadow;
+                        z-index: 2;
+                        transform: translateX(-10%);
+                        border-radius: 3px;
+                        padding: 0.5rem 0;
+
+                        button,
+                        a {
+                            @include dp-flex(row, flex-start, center);
+                            gap: 4%;
+                            width: 100%;
+                            padding: 0.4rem 1rem;
+                            border-radius: 0;
+                            font-size: 0.9rem;
+                        }
+
+                        a.active {
+                            color: $orange;
+                        }
+                    }
+
+                    .header-btn-icon {
+                        @include dp-flex(row, center, center);
+                        flex: 3;
+                        height: 100%;
+                        background: $l-grey;
+                        border-radius: 3px 0 0 3px;
+
+                        &:hover {
+                            color: $orange;
+                        }
+                    }
+
+                    .header-btn-content {
+                        @include dp-flex(column, center, center);
+                        flex: 8;
+                        height: 100%;
+
+                        &:hover {
+                            color: $orange;
+                        }
+                    }
+                }
+            }
+        }
+
+        .header-bottom-div {
+            @include dp-flex(row, flex-start, center);
+            position: relative;
+            flex: 3.5;
+            width: 100%;
+
+            .products-btn {
+                @include dp-flex(row, center, center);
+                gap: 0.25rem;
+                height: 100%;
+                padding: 0 0.75rem;
+                background: none;
+                font-size: 1rem;
+
+                &:hover {
+                    background: $l-orange;
+                }
+            }
+
+            .products-btn:hover+.products-menu-dropdown {
+                @include dp-flex(row, flex-start, flex-start);
+            }
+
+            .products-menu-dropdown:hover {
+                @include dp-flex(row, flex-start, flex-start);
+            }
+
+            .products-menu-dropdown {
+                display: none;
+                position: absolute;
+                z-index: 4;
+                width: 100%;
+                height: auto;
+                min-height: 12rem;
+                top: 100%;
+                left: 0;
+                box-shadow: $shadow;
+                background: #fff;
+
+                ul {
+                    @include dp-flex(column, flex-start, flex-start);
+                    flex: 1;
+                    max-width: 12rem;
+                    height: 100%;
+                    margin: 1rem 0;
+
+                    h4 {
+                        margin-bottom: 0.5rem;
+                        padding: 0.25rem 0 0.25rem 0.5rem;
+                    }
+
+                    li {
+                        @include dp-flex(row, flex-start, center);
+                        width: 100%;
+
+                        a {
+                            @include dp-flex(row, flex-start, center);
+                            width: 100%;
+                            padding: 0.25rem 1rem;
+                            cursor: pointer;
+                            transition: all .4s;
+                            text-transform: capitalize;
+
+                            &:hover {
+                                background: $l-orange;
+                                color: #fff;
+                                border-radius: 4px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.login-page {
+    @include dp-flex(column, flex-start, flex-start);
+    gap: 1rem;
+
+    .to-register-page {
+        color: $grey;
+        text-decoration: underline 1px $grey;
+        text-underline-offset: 2px;
+    }
+}
+
+.my-account-links-page {
+    @include dp-flex(column, flex-start, flex-start);
+    flex: 1;
+    gap: 0.1rem;
+
+    h2 {
+        margin-bottom: 1rem;
+    }
+
+    .my-account-links {
+        @include dp-flex(row, flex-start, center);
+        gap: 4%;
+        width: 100%;
+        padding: 0.4rem 0.75rem;
+        border-radius: 4px;
+        transition: all .4s;
+
+        &:hover {
+            background: $orange;
+            color: #fff;
+        }
+    }
+
+    .my-account-links.active {
+        background: $orange;
+        color: #fff;
+    }
+
+    .logout-btn {
+        @include dp-flex(row, center, center);
+        gap: 2%;
+        width: 100%;
+        margin-top: 0.9rem;
+        font-size: 0.9rem;
+
+        &:hover {
+            background: $grey;
+            color: #fff;
+        }
+    }
+}
+
+.user-informations-page {
+    @include dp-flex(row, flex-start, flex-start);
+    position: relative;
+    gap: 2%;
+
+    .second-div {
+        @include dp-flex(column, flex-start, flex-start);
+        flex: 4;
+    }
+
+    .user-informations-div {
+        @include dp-flex(column, flex-start, flex-start);
+        gap: 1rem;
+        width: 100%;
+
+        .user-informations-title-div {
+            @include dp-flex(row, space-between, center);
+            width: 100%;
+            padding: 1.5rem;
+            border-radius: 3px;
+            border: $border;
+
+            button {
+                i {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .edit-profile-btn {
+                position: relative;
+
+                &:hover {
+                    &::after {
+                        position: absolute;
+                        content: 'Edit profile';
+                        width: 200%;
+                        top: 110%;
+                        left: 0;
+                        transform: translateX(-25%);
+                        color: $grey;
+                    }
+                }
+            }
+        }
+
+        .user-informations {
+            @include dp-flex(row, flex-start, flex-start);
+            height: auto;
+            width: 100%;
+            border-radius: 3px;
+            border: $border;
+
+            .user-informations-first-div {
+                @include dp-flex(column, flex-start, flex-start);
+                flex: 1;
+                gap: 1rem;
+                padding: 1rem 2%;
+
+                label {
+                    @include dp-flex(column, flex-start, flex-start);
+                    display: flex;
+                    gap: 0.25rem;
+                    width: 100%;
+
+                    span {
+                        color: $grey;
+                    }
+                }
+            }
+
+            .user-informations-second-div {
+                @include dp-flex(column, flex-start, flex-start);
+                gap: 1rem;
+                flex: 1;
+                width: none;
+                min-width: none;
+                max-width: none;
+                box-shadow: none;
+                border-left: $border;
+                padding: 1rem 2%;
+            }
+        }
+    }
+
+    .edit-profile-div {
+        @include dp-flex(row, center, flex-start);
+        position: absolute;
+    }
+}
+
+.admin-products-page {
+    @include dp-flex(column, flex-start, flex-start);
+    position: relative;
+    gap: 1rem;
+    width: 100%;
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid $orange;
+
+        td {
+            padding: 0.4rem 0.75rem;
+            text-align: left;
+
+            .product-update-btn {
+                @include dp-flex(row, center, center);
+                border-radius: 3px;
+                background: rgb(197, 197, 248);
+                cursor: pointer;
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .product-delete-btn {
+                background: #f87171;
+            }
+        }
+
+        td:nth-of-type(4) {
+            @include dp-flex(row, flex-end, center);
+            width: max-content;
+            gap: 2%;
+            margin-left: auto;
+        }
+
+        thead {
+            background: $orange;
+            color: #fff;
+        }
+    }
+
+    tr:nth-child(even) {
+        background-color: $l-orange;
+    }
+}
+
+.product-page {
+    @include dp-flex(column, flex-start, flex-start);
+    gap: 1rem 2%;
+    width: 100%;
+    box-shadow: $shadow;
+    padding: 1rem;
+
+    .product-page-first-div {
+        @include dp-flex(column, flex-start, flex-start);
+        gap: 1rem 2%;
+        width: 100%;
+
+        .product {
+            @include dp-flex(row, space-between, flex-start);
+            gap: 1rem 2%;
+            width: 100%;
+
+            .img {
+                display: flex;
+                flex: 1;
+                height: 30rem;
+                background: $l-orange;
+                border-radius: 6px;
+            }
+
+            .product-second-div {
+                @include dp-flex(column, flex-start, flex-start);
+                height: 100%;
+                flex: 1;
+                gap: 1rem;
+
+                .title {
+                    width: 100%;
+                }
+
+                .price {
+                    width: 100%;
+
+                    &::after {
+                        content: $curreny-unit;
+                        padding-left: 0.25rem;
+                    }
+                }
+
+                .product-buttons {
+                    @include dp-flex(row, space-between, center);
+                    gap: 20%;
+                    width: 100%;
+
+                    .add-to-cart-btn {
+                        flex: 12;
+                        background: $l-orange;
+                        color: #fff;
+                        font-weight: 500;
+
+                        &:hover {
+                            background: orange;
+                        }
+                    }
+
+                    .add-to-favorites-btn {
+                        flex: 1;
+                        background: $orange;
+                        color: #fff;
+                        font-weight: 500;
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+
+        .product-page-second-div {
+            @include dp-flex(column, flex-start, flex-start);
+            width: 100%;
+            border-top: 2px solid $grey;
+            padding: 1rem 0;
+
+            .product-informations {
+                @include dp-flex(column, flex-start, flex-start);
+                gap: 0.25rem;
+                width: 50%;
+
+                h2 {
+                    width: 100%;
+                    margin-bottom: 1rem;
+                }
+
+                li {
+                    @include dp-flex(row, space-between, center);
+                    width: 100%;
+                    gap: 0.5rem;
+                    padding: 0.25rem 0.75rem;
+
+                    .key {
+                        @include dp-flex(row, flex-start, center);
+                        flex: 1;
+                        color: $grey;
+                        font-weight: 600;
+                    }
+
+                    .value {
+                        @include dp-flex(row, flex-end, center);
+                        flex: 1;
+                        color: $grey;
+                    }
+                }
+
+                li:nth-of-type(odd) {
+                    background: $l-orange;
+                }
+            }
+        }
+    }
+}
+
+.favorites-page {
+    @include dp-flex(row, space-between, flex-start);
+    gap: 2%;
+    width: 100%;
+
+    .favorites-page-second-div {
+        @include dp-flex(column, flex-start, flex-start);
+        width: 100%;
+        flex: 4;
+        flex-wrap: wrap;
+        gap: 1rem 2%;
+
+        .loading {
+            @include dp-flex(row, flex-start, flex-start);
+            flex: 4;
+        }
+
+        .favorite-products {
+            @include dp-flex(row, flex-start, flex-start);
+            width: 100%;
+            flex-wrap: wrap;
+            gap: 1rem 2%;
+
+            .favorite-product {
+                @include dp-flex(row, flex-start, flex-start);
+                flex: 1;
+                gap: 2%;
+                min-width: 49%;
+                max-width: 49%;
+                height: 6rem;
+                padding: 0.5rem;
+                border: $border;
+                border-radius: 3px;
+
+                .img {
+                    display: flex;
+                    flex: 2;
+                    height: 100%;
+                    background: $l-orange;
+                }
+
+                .favorite-product-second-div {
+                    @include dp-flex(column, flex-start, flex-start);
+                    flex: 8;
+                    height: 100%;
+                    gap: 10%;
+
+                    .title {
+                        width: 100%;
+                        height: max-content;
+                        font-weight: 600;
+                    }
+
+                    .price {
+                        width: 100%;
+
+                        &::after {
+                            content: $curreny-unit;
+                            padding-left: 0.25rem;
+                        }
+                    }
+                }
+
+                .add-to-favorites-btn {
+                    @include dp-flex(row, flex-start, flex-start);
+                    position: relative;
+                    height: auto;
+                    flex: 0.5;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    color: $orange;
+
+                    &:hover {
+                        &::after {
+                            content: 'remove';
+                            position: absolute;
+                            transform: translateX(-20%);
+                            width: 200%;
+                            top: 140%;
+                            left: 0;
+                            font-size: 0.5rem;
+                            color: $grey;
+                            text-transform: lowercase;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.my-orders-page {
+    @include dp-flex(row, space-between, flex-start);
+    gap: 2%;
+    width: 100%;
+
+
+    .my-orders-page-second-div {
+        @include dp-flex(row, flex-start, flex-start);
+        flex: 4;
+        flex-wrap: wrap;
+        gap: 1rem 2%;
+
+        .orders {
+            @include dp-flex(column, flex-start, flex-start);
+            width: 100%;
+            gap: 1rem 2%;
+
+            .order {
+                @include dp-flex(column, flex-start, flex-start);
+                width: 100%;
+                height: auto;
+                border-radius: 4px;
+                box-shadow: $shadow;
+                padding-bottom: 0.5rem;
+
+                .order-p-element {
+                    @include dp-flex(row, flex-start, center);
+                    gap: 0.25rem;
+
+                    span {
+                        color: $grey;
+                        font-weight: 600;
+                    }
+                }
+
+                .order-top-div {
+                    @include dp-flex(row, space-between, flex-start);
+                    flex: 2;
+                    width: 100%;
+                    border-bottom: $border;
+                    padding: 0.5rem 0.75rem;
+
+                    .order-top-div-first {
+                        @include dp-flex(row, flex-start, center);
+                        gap: 0.5rem 2%;
+                        width: calc(100% - 2rem);
+                        flex-wrap: wrap;
+
+                        .order-p-element {
+                            min-width: 48%;
+                        }
+                    }
+
+                    .order-top-div-second {
+                        width: 2rem;
+
+                        label {
+                            width: 100%;
+                            height: 100%;
+
+                            .details-btn {
+                                @include dp-flex(row, flex-end, center);
+                                position: relative;
+                                cursor: pointer;
+                                width: 100%;
+                                height: 100%;
+                            }
+
+                            .details-btn:hover {
+                                &::after {
+                                    content: 'Order details';
+                                    position: absolute;
+                                    font-size: 0.65rem;
+                                    bottom: 150%;
+                                    left: 0%;
+                                    width: 300%;
+                                    transform: translateX(-40%);
+                                    text-transform: lowercase;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .order-bottom-div {
+                    @include dp-flex(column, flex-start, flex-start);
+                    flex: 6;
+                    width: 100%;
+                    border-bottom: $border;
+
+                    .order-product {
+                        border-bottom: $border;
+                    }
+
+                    .order-product:nth-last-of-type(1) {
+                        border-bottom: none;
+                    }
+
+                    .order-product {
+                        @include dp-flex(row, flex-start, flex-start);
+                        width: 100%;
+                        height: auto;
+                        padding: 0.5rem 0.75rem;
+                        gap: 2%;
+
+                        .img {
+                            width: 25%;
+                            //height: 100%;
+                            height: 6rem;
+                            background: $l-orange;
+                        }
+
+                        .order-product-second-div {
+                            @include dp-flex(row, flex-start, space-between);
+                            gap: 0.5rem 2%;
+                            flex-wrap: wrap;
+                            width: 75%;
+                            height: 100%;
+
+                            .order-p-element:nth-of-type(1) {
+                                width: 100%;
+                            }
+
+                            .order-p-element {
+                                width: auto;
+                                min-width: 32%;
+                                padding: 0.25rem;
+                                background: $l-grey;
+                                border-radius: 4px;
+                            }
+                        }
+                    }
+                }
+
+                input[type='checkbox'] {
+                    display: none;
+                }
+
+                input[type='checkbox']:checked+.order-dropdown {
+                    @include dp-flex(column, flex-start, flex-start);
+                }
+
+                .order-dropdown {
+                    display: none;
+                    width: 100%;
+                    height: auto;
+                    padding: 0.5rem 0.75rem 0 0.75rem;
+
+                    .order-p-element {
+                        padding: 0.25rem 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.cart-page {
+    @include dp-flex(row, space-between, flex-start);
+    gap: 1rem 2%;
+    width: 100%;
+
+    .cart-page-first-div {
+        @include dp-flex(column, flex-start, flex-start);
+        flex: 3.5;
+        gap: 1rem;
+
+        .cart-product {
+            @include dp-flex(row, flex-start, flex-start);
+            gap: 2%;
+            width: 100%;
+            height: 6rem;
+            /*height: auto;
+            min-height: 5rem;
+            max-height: 7rem;*/
+            padding: 0.5rem;
+            box-shadow: $shadow;
+
+            .img {
+                height: 100%;
+                width: 20%;
+                background: $l-orange;
+            }
+
+            .cart-product-informations {
+                @include dp-flex(column, flex-start, flex-start);
+                gap: 4%;
+                height: 100%;
+                width: 60%;
+
+                .cart-product-title {
+                    @include dp-flex(row, flex-start, flex-start);
+                    flex: 2;
+                    font-weight: 600;
+                    width: 100%;
+                }
+
+                .cart-product-price {
+                    @include dp-flex(row, flex-start, flex-start);
+                    flex: 1;
+                    font-weight: 500;
+                    width: 100%;
+                    color: $grey;
+                }
+            }
+
+            .cart-product-buttons {
+                @include dp-flex(column, flex-start, flex-start);
+                margin-left: auto;
+                height: 100%;
+                width: 2.5rem;
+
+                .product-quantity-increase-btn,
+                .product-quantity-dicrease-btn {
+                    @include dp-flex(row, center, center);
+                    flex: 1;
+                    width: 100%;
+                    padding: 0;
+                    font-size: 1.125rem;
+                    font-weight: 500;
+                }
+
+                input[type='number'] {
+                    @include dp-flex(row, center, center);
+                    flex: 1;
+                    width: 100%;
+                    padding: 0 0 0 30%;
+                    margin: 0;
+                    font-weight: 500;
+                    outline: none;
+                    border: none;
+                }
+            }
+        }
+    }
+
+    .cart-page-second-div {
+        @include dp-flex(column, flex-start, flex-start);
+        gap: 1rem;
+        flex: 1;
+        border: $border;
+        padding: 1rem;
+
+        .cart-total-price {
+            span {
+                color: $grey;
+                font-weight: 500;
+            }
+        }
+
+        .confirm-cart-btn {
+            @include dp-flex(row, center, center);
+            padding: 0.5rem;
+            width: 100%;
+            background: $l-orange;
+            font-weight: 500;
+
+            &:disabled {
+                &:hover {
+                    background: $l-orange;
+                    color: rgba(16, 16, 16, 0.3);
+                }
+            }
+
+            &:hover {
+                background: $orange;
+                color: #fff;
+            }
+        }
+    }
+}
+
+.addresses-page {
+    @include dp-flex(row, flex-start, flex-start);
+    position: relative;
+    gap: 1rem 2%;
+
+    .addresses-page-second-div {
+        @include dp-flex(column, flex-start, flex-start);
+        gap: 1rem 2%;
+        flex: 4;
+
+        .addresses {
+            @include dp-flex(row, flex-start, flex-start);
+            flex-wrap: wrap;
+            gap: 1rem 2%;
+            width: 100%;
+
+            .address {
+                @include dp-flex(column, flex-start, flex-start);
+                gap: 1rem;
+                flex: 1;
+                max-width: 49%;
+                min-width: 49%;
+                padding: 0.5rem;
+                box-shadow: $shadow;
+
+                .address-content {
+                    width: 100%;
+                    resize: none;
+                    border: $border;
+                    border-radius: 2px;
+                    background: $l-grey;
+                    padding: 0.75rem 0.5rem;
+                }
+
+                div {
+                    @include dp-flex(row, flex-end, flex-start);
+                    width: 100%;
+                    gap: 2%;
+
+                    .address-title {
+                        margin-right: auto;
+                    }
+
+                    .delete-address-btn {
+                        cursor: pointer;
+
+                        &:hover {
+                            color: #ef4444;
+                        }
+                    }
+
+                    .edit-address-btn {
+                        cursor: pointer;
+
+                        &:hover {
+                            color: $orange;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.payment-page {
+    @include dp-flex(column, flex-start, flex-start);
+    gap: 1rem 2%;
+    width: 100%;
+
+    .err-border {
+        border: 1px solid #f87171;
+    }
+
+    .back-to-cart-btn {
+        @include dp-flex(row, center, center);
+        gap: 0.25rem;
+        padding: 0.5rem 0.9rem;
+        background: $l-grey;
+        border-radius: 3px;
+    }
+
+    .address-informations {
+        @include dp-flex(row, flex-start, flex-start);
+        flex-wrap: wrap;
+        gap: 1rem 2%;
+        width: 100%;
+
+        h2 {
+            display: flex;
+            width: 100%;
+            border-radius: 3px;
+        }
+
+        .address.err-border {
+            border: 1px solid #f87171;
+        }
+
+        .address {
+            width: calc(33.33% - 1.33%);
+            border: $border;
+            border-radius: 3px;
+            min-height: 9rem;
+            height: auto;
+
+            label {
+                @include dp-flex(column, space-between, flex-start);
+                width: 100%;
+                height: 100%;
+                padding: 0.5rem;
+
+                input {
+                    margin: 0.25rem 0.5rem;
+                }
+
+                .address-title {
+                    width: 100%;
+                    padding: 0.25rem 0.5rem;
+                }
+
+                .address-content {
+                    width: 100%;
+                    resize: none;
+                    border: $border;
+                    border-radius: 2px;
+                    background: $l-grey;
+                    padding: 0.75rem 0.5rem;
+                }
+            }
+
+
+        }
+    }
+
+    .payment-informations {
+        @include dp-flex(row, flex-start, flex-start);
+        flex-wrap: wrap;
+        gap: 1rem 2%;
+        width: auto;
+        height: auto;
+
+        h2 {
+            display: flex;
+            width: 100%;
+        }
+
+        .cart-informations {
+            @include dp-flex(column, space-between, flex-start);
+            width: 33%;
+            height: 16rem;
+            gap: 1rem 2%;
+            box-shadow: $shadow;
+            padding: 1rem;
+
+            input[type='text'] {
+                @include dp-flex(row, center, center);
+                width: 23.75%;
+                height: 2.25rem;
+                padding: 0;
+                text-align: center;
+            }
+
+            .cart-number {
+                @include dp-flex(row, space-between, flex-start);
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 0.25rem;
+
+                h4 {
+                    width: 100%;
+                }
+            }
+
+            .other-cart-informations {
+                @include dp-flex(row, space-between, flex-start);
+                gap: 1rem 2%;
+                width: 100%;
+
+                .cart-cvv {
+                    @include dp-flex(column, flex-start, flex-start);
+                    width: 23.75%;
+                    flex-wrap: wrap;
+                    gap: 0.25rem;
+
+                    h4 {
+                        width: 100%;
+                    }
+
+                    input {
+                        width: 100%;
+                    }
+                }
+
+                .cart-expiration-date {
+                    @include dp-flex(column, flex-start, flex-start);
+                    width: 48.25%;
+                    flex-wrap: wrap;
+                    gap: 0.25rem;
+
+                    h4 {
+                        width: 100%;
+                    }
+
+                    div.cart-expiration-date-inputs {
+                        @include dp-flex(row, flex-start, flex-start);
+                        width: 100%;
+                        gap: 0.25rem;
+
+                        input {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+            .cart-name-div {
+                @include dp-flex(column, space-between, flex-start);
+                gap: 0.25rem;
+                width: 100%;
+
+                input {
+                    width: 100%;
+                    text-align: start;
+                    padding: 0.25rem 0.75rem;
+                }
+            }
+        }
+
+        .payment-installment {
+            @include dp-flex(column, space-between, flex-start);
+            width: 32%;
+            height: 16rem;
+            gap: 1rem 2%;
+            padding: 1rem;
+            box-shadow: $shadow;
+
+            h2 {
+                width: 100%;
+                padding: 0 0rem;
+            }
+
+            .installment-list {
+                @include dp-flex(column, flex-start, flex-start);
+                width: 100%;
+                height: auto;
+
+                li:nth-of-type(1) {
+                    border-bottom: $border;
+                }
+
+                li {
+                    @include dp-flex(row, space-between, center);
+                    width: 100%;
+
+                    .first-p-tags {
+                        padding: 0.25rem 0.75rem;
+                    }
+
+                    label {
+                        @include dp-flex(row, flex-start, center);
+                        gap: 4%;
+                        width: 100%;
+                        padding: 0.5rem 1.25rem;
+                        border-bottom: $border;
+
+                        p:nth-of-type(1) {
+                            margin-left: 10%;
+                        }
+
+                        p:nth-of-type(2) {
+                            margin-left: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .complete-shopping-btn {
+        background: $l-orange;
+
+        &:hover {
+            background: $orange;
+            color: #fff;
+        }
+    }
+}
+
+.home-page {
+    @include dp-flex(column, flex-start, flex-start);
+    gap: 1rem 2%;
+    width: 100%;
+
+    .sections {
+        @include dp-flex(column, flex-start, flex-start);
+        width: 100%;
+
+        .section-top-div {
+            @include dp-flex(row, space-between, center);
+            width: 100%;
+            padding: 0 1rem;
+
+            .section-top-div-buttons {
+                @include dp-flex(row, flex-start, center);
+                gap: 0.5rem;
+                width: auto;
+                height: auto;
+
+                i {
+                    padding: 0.25rem;
+                    cursor: pointer;
+                    color: $grey;
+
+                    &:hover {
+                        color: $orange;
+                    }
+                }
+            }
+        }
+
+        $product-amount: 4;
+
+        .products {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            padding: 0.75rem 0.5rem;
+
+            .slide-0 {
+                transform: translateX(0);
+            }
+
+            .slide-1 {
+                transform: translateX(-12.5% - ((1% / $product-amount) * 1));
+            }
+
+            .slide-2 {
+                transform: translateX((-12.5 * 2) - ((1% / $product-amount) * 2));
+            }
+
+            .slide-3 {
+                transform: translateX((-12.5 * 3) - ((1% / $product-amount) * 3));
+            }
+
+            .slide-4 {
+                transform: translateX((-12.5 * 4) - ((1% / $product-amount) * 4));
+            }
+
+            .products-div-flex-box {
+                @include dp-flex(row, flex-start, flex-start);
+                gap: 1rem 1%;
+                width: 200%; // 200% / %50 = 100% 
+                transition: all 0.4s;
+
+                .product-div {
+                    @include dp-flex(column, space-between, center);
+                    min-width: calc((50% / $product-amount) - (1% / $product-amount * 3)); // ((50% / ekranda gösterilecek product sayısı))
+                    max-width: calc((50% / $product-amount) - (1% / $product-amount * 3)); // ((gap miktarı / ekrandaki product sayısı) * gap sayısı)
+                    box-shadow: $shadow;
+                    height: 18rem;
+                    transition: all .4s;
+
+                    &:hover {
+                        transform: scale(1.04);
+                    }
+
+                    .product-div-flexbox {
+                        @include dp-flex(column, space-between, center);
+                        gap: 2%;
+                        width: 100%;
+                        height: 100%;
+                        padding: 4%;
+
+                        .img {
+                            width: 100%;
+                            height: 68%;
+                            background: antiquewhite;
+                        }
+
+                        .product-bottom-div {
+                            @include dp-flex(column, flex-start, center);
+                            height: 30%;
+                            gap: 0.25rem;
+                            width: 100%;
+
+                            .product-title {
+                                width: 100%;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;
+                                -webkit-line-clamp: 3;
+                                /* Number of lines displayed before it truncate */
+                                overflow: hidden;
+                            }
+
+                            .product-price {
+                                @include dp-flex(row, flex-start, center);
+                                width: 100%;
+                                color: $grey;
+
+                                &::after {
+                                    content: $curreny-unit;
+                                    padding-left: 0.25rem;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.admin-orders {
+    @include dp-flex(column, flex-start, flex-start);
+    position: relative;
+    width: 100%;
+    gap: 1rem 2%;
+
+    .orders {
+        @include dp-flex(column, flex-start, flex-start);
+        width: 100%;
+        gap: 1rem 2%;
+
+        .order {
+            @include dp-flex(column, flex-start, flex-start);
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: $shadow;
+            padding-bottom: 0.5rem;
+
+            .order-p-element {
+                @include dp-flex(row, flex-start, center);
+                gap: 0.25rem;
+
+                span {
+                    color: $grey;
+                    font-weight: 600;
+                }
+            }
+
+            .order-top-div {
+                @include dp-flex(row, space-between, flex-start);
+                flex: 2;
+                width: 100%;
+                border-bottom: $border;
+                padding: 0.5rem 0.75rem;
+
+                .order-top-div-first {
+                    @include dp-flex(row, flex-start, center);
+                    gap: 0.5rem 2%;
+                    width: calc(100% - 2rem);
+                    flex-wrap: wrap;
+
+                    .order-p-element {
+                        //min-width: 48%;
+                        width: auto;
+                        min-width: 18rem;
+                    }
+                }
+
+                .order-top-div-second {
+                    width: 2rem;
+
+                    .update-order-btn {
+                        @include dp-flex(row, center, center);
+                        width: 100%;
+                        padding: 0.4rem 0;
+                    }
+
+                    label {
+                        width: 100%;
+                        height: 100%;
+
+                        .details-btn {
+                            @include dp-flex(row, center, center);
+                            position: relative;
+                            cursor: pointer;
+                            width: 100%;
+                            padding: 0.25rem 0;
+                        }
+                    }
+                }
+            }
+
+            .order-bottom-div {
+                @include dp-flex(column, flex-start, flex-start);
+                flex: 6;
+                width: 100%;
+                border-bottom: $border;
+
+                .order-product {
+                    border-bottom: $border;
+                }
+
+                .order-product:nth-last-of-type(1) {
+                    border-bottom: none;
+                }
+
+                .order-product {
+                    @include dp-flex(row, flex-start, flex-start);
+                    width: 100%;
+                    height: auto;
+                    padding: 0.5rem 0.75rem;
+                    gap: 2%;
+
+                    .img {
+                        width: 25%;
+                        //height: 100%;
+                        height: 6rem;
+                        background: $l-orange;
+                    }
+
+                    .order-product-second-div {
+                        @include dp-flex(row, flex-start, space-between);
+                        gap: 0.5rem 2%;
+                        flex-wrap: wrap;
+                        width: 75%;
+                        height: 100%;
+
+                        .order-p-element:nth-of-type(1) {
+                            width: 100%;
+                        }
+
+                        .order-p-element {
+                            width: auto;
+                            min-width: 32%;
+                            padding: 0.25rem;
+                            background: $l-grey;
+                            border-radius: 4px;
+                        }
+                    }
+                }
+            }
+
+            input[type='checkbox'] {
+                display: none;
+            }
+
+            input[type='checkbox']:checked+.order-dropdown {
+                @include dp-flex(column, flex-start, flex-start);
+            }
+
+            .order-dropdown {
+                display: none;
+                width: 100%;
+                height: auto;
+                padding: 0.5rem 0.75rem 0 0.75rem;
+
+                .order-p-element {
+                    padding: 0.25rem 0;
+                }
+            }
+        }
+    }
+
+    .update-order-div {
+        @include dp-flex(column, flex-start, center);
+
+    }
+}
+
+@media (max-width:767px) {
+
+    .home-page {
+        .sections {
+            .products {
+
+                $product-amount: 3;
+
+                .slide-0 {
+                    transform: translateX(0);
+                }
+
+                .slide-1 {
+                    transform: translateX(-((50% / $product-amount)*2) - ((1% / $product-amount * 2)));
+                }
+
+                .slide-2 {
+                    transform: translateX(-((50% / $product-amount)*3) - ((1% / $product-amount * 3)));
+                }
+
+                .slide-3 {
+                    transform: translateX(-((50% / $product-amount)*4) - ((1% / $product-amount * 4)));
+                }
+
+                .slide-4 {
+                    transform: translateX(-((50% / $product-amount)*5) - ((1% / $product-amount * 5)));
+                }
+
+                .products-div-flex-box {
+                    @include dp-flex(row, flex-start, flex-start);
+                    gap: 1rem 1%;
+                    width: 200%; // 200% / %50 = 100% 
+                    transition: all 0.4s;
+
+                    .product-div {
+                        @include dp-flex(column, space-between, center);
+                        min-width: calc((50% / $product-amount) - (1% / $product-amount * 2));
+                        max-width: calc((50% / $product-amount) - (1% / $product-amount * 2));
+                        box-shadow: $shadow;
+                        height: 18rem;
+                        transition: all .4s;
+                    }
+                }
+            }
+        }
+    }
+
+    .product-page {
+        .product-page-first-div {
+            .product {
+                @include dp-flex(column, flex-start, flex-start);
+                width: 100%;
+
+                .img {
+                    display: flex;
+                    flex: none;
+                    width: 100%;
+                    height: 30rem;
+                    background: $l-orange;
+                    border-radius: 6px;
+                }
+            }
+
+            .product-page-second-div {
+                .product-informations {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .payment-page {
+        @include dp-flex(column, flex-start, flex-start);
+        gap: 1rem 2%;
+        width: 100%;
+
+        .address-informations {
+            @include dp-flex(row, flex-start, flex-start);
+            flex-wrap: wrap;
+            gap: 1rem 2%;
+            width: 100%;
+
+            .address {
+                width: calc(49%);
+                border: $border;
+                border-radius: 3px;
+                min-height: 9rem;
+                height: auto;
+            }
+        }
+
+        .payment-informations {
+            .cart-informations {
+                width: 100%;
+            }
+
+            .payment-installment {
+                width: 100%;
+            }
+        }
+    }
+
+    header {
+        .header-div {
+            .header-top-div {
+                .header-buttons {
+                    gap: 4%;
+
+                    .header-first-btn:hover .header-dropdown {
+                        display: none;
+                    }
+
+                    .header-first-btn,
+                    .header-second-btn {
+                        width: 4rem;
+
+                        .header-btn-content {
+                            display: none;
+                        }
+
+                        .header-btn-icon {
+                            border-radius: 3px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .cart-page {
+        flex-direction: column;
+
+        .cart-page-first-div,
+        .cart-page-second-div {
+            width: 100%;
+        }
+    }
+
+    .products-page {
+        flex-direction: column;
+
+        .filters-div {
+            width: 100%;
+        }
+
+        .product-div-flex-box {
+            width: 100%;
+
+            .products-div {
+
+                .product-div {
+                    grid-column: span 4;
+                }
+            }
+        }
+    }
+
+    .my-account-links-page {
+        width: 100%;
+    }
+
+    .user-informations-page,
+    .my-orders-page,
+    .favorites-page,
+    .addresses-page {
+        flex-direction: column;
+        gap: 1rem;
+
+        .favorites-page-second-div {
+            .favorite-products {
+                .favorite-product {
+                    min-width: 100%;
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+
+    .addresses-page {
+        .addresses-page-second-div {
+            .addresses {
+                .address {
+                    @include dp-flex(column, flex-start, flex-start);
+                    gap: 1rem;
+                    flex: 1;
+                    max-width: 100%;
+                    min-width: 100%;
+                    padding: 0.75rem;
+                    box-shadow: $shadow;
+                }
+            }
+        }
+    }
+
+    .second-div,
+    .my-orders-page-second-div,
+    .addresses-page-second-div {
+        width: 100%;
+    }
+
+    .user-informations-page {
+        .user-informations-div {
+            .user-informations {
+                flex-direction: column;
+
+                .user-informations-first-div,
+                .user-informations-second-div {
+                    width: 100%;
+                }
+
+                .user-informations-second-div {
+                    border-left: none;
+                    border-top: $border;
+                }
+            }
+        }
+    }
+
+
+}
+
+@media (max-width:600px) {
+
+    .products-page {
+
+        .product-div-flex-box {
+
+            .products-div {
+
+                .product-div {
+                    grid-column: span 6;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,63 @@
+@import url('./style.css');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter Tight', sans-serif;
+}
+
+.container {
+    width: 96%;
+    max-width: 1250px;
+    /*max-width: 1400px;*/
+    margin: 0 auto;
+    padding: 1rem 0;
+}
+
+.center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.6rem 1.25rem;
+    border-radius: 3px;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='email'],
+textarea {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    outline: none;
+    border: 1px solid rgba(204, 204, 204);
+    border-radius: 2px;
+}
+
+input[type='text']:focus,
+input[type='password']:focus,
+input[type='email']:focus,
+textarea:focus {
+    outline: 2px solid #d6f8f8;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+ul {
+    list-style: none;
+}
+
+.App,
+.route-div {
+    width: 100%;
+}
